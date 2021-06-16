@@ -6,6 +6,7 @@ import Game.Input.Key;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import Game.Game;
 
 public class MenuState extends GameState {
 

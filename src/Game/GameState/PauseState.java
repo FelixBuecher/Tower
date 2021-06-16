@@ -3,6 +3,7 @@ package Game.GameState;
 import Game.Input.Key;
 
 import java.awt.*;
+import Game.Game;
 
 public class PauseState extends GameState {
 

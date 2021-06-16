@@ -1,7 +1,7 @@
 package Game.GameState;
 
 import Game.Audio.JukeBox;
-
+import Game.Game;
 import java.awt.*;
 
 public class GameStateManager {
