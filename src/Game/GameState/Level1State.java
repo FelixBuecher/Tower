@@ -4,10 +4,10 @@ import Game.Audio.JukeBox;
 import Game.Entity.Mob.Player.Player;
 import Game.GUI.GUI;
 import Game.Graphics.Sprite;
+import Game.Graphics.SpriteSheet;
 import Game.Input.Key;
 import Game.Level.Level;
 import Game.Tools.Constants;
-import Game.Tools.Position;
 
 import java.awt.*;
 
@@ -26,9 +26,9 @@ public class Level1State extends GameState {
 
     @Override
     public void init() {
-        //level = new Level("/Level/level.png", 16);
+        level = new Level("/Textures/Level/level.png", 16);
 
-        player = new Player(Sprite.playerSprite); // LEVEL
+        player = new Player(Sprite.playerSprite, level);
 
         //gui = new GUI(player);
 
@@ -40,17 +40,17 @@ public class Level1State extends GameState {
     public void update() {
         handleInput();
         player.update();
-        level.setPosition(new Position(Constants.WIDTH / 2 - player.getPos().getX(), Constants.HEIGHT / 2 - player.getPos().getY()));
-        level.update();
+        //level.setPosition(new Position(Constants.WIDTH / 2 - player.getPos().getX(), Constants.HEIGHT / 2 - player.getPos().getY()));
+        //level.update();
     }
 
     @Override
     public void render(Graphics2D g) {
-        level.render(g);
+        //level.render(g);
 
         player.render(g);
 
-        gui.render(g);
+        //gui.render(g);
     }
 
     @Override

@@ -1,18 +1,25 @@
 package Game.Entity;
 
 import Game.Graphics.Sprite;
+import Game.Level.Level;
 import Game.Tools.Position;
 
 import java.awt.*;
 
-public abstract class Entity {
+public class Entity {
 
     protected Sprite sprite;
     protected Position pos;
     protected int w, h, cw, ch;
+    protected Level level;
 
-    public Entity(Sprite sprite) {
+    public Entity(Sprite sprite, Level level) {
         this.sprite = sprite;
+        this.level = level;
+    }
+
+    public Entity() {
+
     }
 
     public void setPosition(Position pos) {
@@ -40,6 +47,11 @@ public abstract class Entity {
     public void render(Graphics2D g) {
 
     }
+
+    public void init(Level level) {
+        this.level = level;
+    }
+
 
 
 }

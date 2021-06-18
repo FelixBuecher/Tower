@@ -2,7 +2,6 @@ package Game.Graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 public class SpriteSheet {
 
@@ -10,14 +9,13 @@ public class SpriteSheet {
     ///////////////////// Tile sprite sheets /////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static SpriteSheet tileSheet = new SpriteSheet("/Textures/Tiles/spritesheet.png");
-    public static SpriteSheet playerSheet = new SpriteSheet("/Textures/Sprites/Player/character.png");
+    public static SpriteSheet tileSheet = new SpriteSheet(  "/Textures/Tiles/spritesheet.png");
+    public static SpriteSheet playerSheet = new SpriteSheet("/Textures/Sprites/character.png");
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
     //////////////////////////////////////////////////////////////
 
-    private final int w, h;
     private BufferedImage sheet;
 
     /**
@@ -26,12 +24,10 @@ public class SpriteSheet {
      */
     public SpriteSheet(String path) {
         try {
-            sheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+            sheet = ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
         } catch(Exception e) {
             e.printStackTrace();
         }
-        this.w = sheet.getWidth();
-        this.h = sheet.getHeight();
     }
 
     /**
@@ -44,9 +40,7 @@ public class SpriteSheet {
      * @param height the height of the sprites
      */
     public SpriteSheet(SpriteSheet sheet, int x, int y, int numRight, int width, int height) {
-        this.w = width * numRight;
-        this.h = height;
-        this.sheet = sheet.sheet.getSubimage(x * width, y * height, w, h);
+        this.sheet = sheet.sheet.getSubimage(x * width, y * height, width * numRight, height);
     }
 
     public BufferedImage getSheet() {

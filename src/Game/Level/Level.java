@@ -19,6 +19,7 @@ public class Level {
     private int[] tiles;
     private int rowOffset;
     private int colOffset;
+    private BufferedImage levelImage;
 
 
     public Level(String path, int tileSize) {
@@ -28,11 +29,11 @@ public class Level {
 
     protected void loadLevel(String path) {
         try {
-            BufferedImage image = ImageIO.read(getClass().getResource(path));
-            this.w = image.getWidth();
-            this.h = image.getHeight();
+            levelImage = ImageIO.read(getClass().getResourceAsStream(path));
+            this.w = levelImage.getWidth();
+            this.h = levelImage.getHeight();
             tiles = new int[w * h];
-            image.getRGB(0, 0, w, h, tiles, 0, w);
+            levelImage.getRGB(0, 0, w, h, tiles, 0, w);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Couldn't load file.");

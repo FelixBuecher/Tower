@@ -16,13 +16,12 @@ public class Sprite {
     public static Sprite voidSprite = new Sprite(SpriteSheet.tileSheet,15,15);
 
 
-    public static Sprite playerSprite = new Sprite(SpriteSheet.playerSheet, 0, 0);
+    public static Sprite playerSprite = new Sprite(SpriteSheet.playerSheet, 0, 0, 16, 16);
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
     //////////////////////////////////////////////////////////////
 
-    public int w, h;
     protected SpriteSheet sheet;
     protected BufferedImage[] sequence;
     protected BufferedImage image;
@@ -60,8 +59,6 @@ public class Sprite {
      */
     public Sprite(SpriteSheet sheet, int x, int y, int w, int h, boolean pixelPerfect) {
         this.sheet = sheet;
-        this.w = w;
-        this.h = h;
         if(pixelPerfect) image = sheet.getSheet().getSubimage(x, y, w, h);
         if(!pixelPerfect) image = sheet.getSheet().getSubimage(x * w, y * h, w, h);
     }

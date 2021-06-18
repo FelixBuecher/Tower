@@ -1,6 +1,7 @@
 package Game.GameState;
 
 import Game.Audio.JukeBox;
+import Game.Graphics.SpriteSheet;
 import Game.Input.Key;
 import javax.imageio.ImageIO;
 import java.awt.*;
