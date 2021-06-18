@@ -30,7 +30,7 @@ public class PauseState extends GameState {
         g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
         g.setColor(Color.WHITE);
         g.setFont(font);
-        g.drawString("Game Paused", 90, 90);
+        g.drawString("Game Paused", Game.WIDTH / 3 + font.getSize(), Game.HEIGHT / 2 - font.getSize());
     }
 
     @Override

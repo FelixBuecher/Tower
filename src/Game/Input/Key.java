@@ -35,7 +35,7 @@ public class Key {
         else if(i == KeyEvent.VK_ESCAPE) key[ESCAPE] = b;
     }
 
-	public void update() {
+	public static void update() {
 	    for(int i = 0; i < NUM_KEYS; i++) {
 	        prevKey[i] = key[i];
         }
