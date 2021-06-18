@@ -1,5 +1,7 @@
 package Game.Level;
 
+import Game.Graphics.Sprite;
+
 public class Tile {
 
     private final Sprite sprite;

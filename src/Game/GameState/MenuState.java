@@ -12,7 +12,7 @@ import Game.Game;
 
 public class MenuState extends GameState {
 
-    private BufferedImage head;
+    private BufferedImage cursor;
     private BufferedImage bg;
     private int choice = 0;
     private final String[] options = {"New Game", "Load", "Option", "Quit"};
@@ -24,7 +24,7 @@ public class MenuState extends GameState {
         super(gsm);
         try {
             // Load selection cursor
-            head = ImageIO.read(getClass().getResourceAsStream("/HUD/Cursor.png"));
+            cursor = ImageIO.read(getClass().getResourceAsStream("/HUD/Cursor.png"));
 
             // Setting up fonts
             titleFont = new Font("Times New Roman", Font.PLAIN, Game.WIDTH / 9);
@@ -85,10 +85,10 @@ public class MenuState extends GameState {
 
 
         // Draw selection cursor
-        if(choice == 0) g.drawImage(head, x - 32, (int) (y - fs * 0.9), null);
-        else if(choice == 1) g.drawImage(head, x - 32, (int) (y + fs * 0.1), null);
-        else if(choice == 2) g.drawImage(head, x - 32, (int) (y + fs * 1.1), null);
-        else if(choice == 3) g.drawImage(head, x - 32, (int) (y + fs * 2.1), null);
+        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 0.9), null);
+        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0.1), null);
+        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1.1), null);
+        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2.1), null);
 
         // Credit
         g.setFont(font2);

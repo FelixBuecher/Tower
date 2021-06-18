@@ -1,5 +1,6 @@
 package Game.Entity;
 
+import Game.Graphics.Sprite;
 import Game.Tools.Position;
 
 import java.awt.*;
