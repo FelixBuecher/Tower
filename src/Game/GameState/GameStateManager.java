@@ -1,7 +1,8 @@
 package Game.GameState;
 
 import Game.Audio.JukeBox;
-import Game.Game;
+import Game.Tools.Constants;
+
 import java.awt.*;
 
 public class GameStateManager {
@@ -30,8 +31,8 @@ public class GameStateManager {
     private void loadState(int state) {
         if(state == MENUSTATE)
             gameStates[state] = new MenuState(this);
-        //else if(state == LEVEL1STATE)
-        //    gameStates[state] = new Level1State(this);
+        else if(state == LEVEL1STATE)
+            gameStates[state] = new Level1State(this);
         //else if(state == LEVEL2STATE)
         //    gameStates[state] = new Level2State(this);
     }
@@ -72,7 +73,7 @@ public class GameStateManager {
         if(gameStates[currentState] != null) gameStates[currentState].render(g);
         else {
             g.setColor(java.awt.Color.BLACK);
-            g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+            g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
         }
     }
 }

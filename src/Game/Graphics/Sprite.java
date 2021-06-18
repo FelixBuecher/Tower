@@ -13,10 +13,10 @@ public class Sprite {
     public static Sprite grass = new Sprite(SpriteSheet.tileSheet,0,0);
     public static Sprite grassStone = new Sprite(SpriteSheet.tileSheet,1,0);
     public static Sprite grassFlower0 = new Sprite(SpriteSheet.tileSheet,2,0);
-    public static Sprite grassFlower1 = new Sprite(SpriteSheet.tileSheet,3,0);
-    public static Sprite grassFlower2 = new Sprite(SpriteSheet.tileSheet,4,0);
     public static Sprite voidSprite = new Sprite(SpriteSheet.tileSheet,15,15);
 
+
+    public static Sprite playerSprite = new Sprite(SpriteSheet.playerSheet, 0, 0);
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////

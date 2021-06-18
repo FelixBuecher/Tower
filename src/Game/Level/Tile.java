@@ -4,20 +4,20 @@ import Game.Graphics.Sprite;
 
 public class Tile {
 
-    private final Sprite sprite;
-    private final boolean solid;
-    private final boolean water;
+    public static Tile grass = new Tile(Sprite.grass);
+    public static Tile grassStone = new Tile(Sprite.grassStone, true);
+    public static Tile grassFlower0 = new Tile(Sprite.grassFlower0);
+    public static Tile voidTile = new Tile(Sprite.voidSprite, true);
+
+    private Sprite sprite;
+    private boolean solid, water;
 
     public Tile(Sprite sprite) {
-        this.sprite = sprite;
-        solid = false;
-        water = false;
+        new Tile(sprite, false, false);
     }
 
     public Tile(Sprite sprite, boolean solid) {
-        this.sprite = sprite;
-        this.solid = solid;
-        water = false;
+        new Tile(sprite, solid, false);
     }
 
     public Tile(Sprite sprite, boolean solid, boolean water) {

@@ -2,6 +2,7 @@ package Game;
 
 import Game.GameState.GameStateManager;
 import Game.Input.Key;
+import Game.Tools.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +12,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Game extends Canvas implements Runnable, KeyListener {
-
-    // Dimensions
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = WIDTH / 16 * 9;
-    public static final int SCALE = 2;
 
     // Game thread
     private Thread thread;
@@ -35,7 +31,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public Game() {
         super();
-        setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        setPreferredSize(new Dimension(Constants.WIDTH * Constants.SCALE, Constants.HEIGHT * Constants.SCALE));
         setFocusable(true);
         requestFocus();
     }
@@ -62,14 +58,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
             return;
         }
         Graphics g2 = bs.getDrawGraphics();// getGraphics();
-        g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+        g2.drawImage(image, 0, 0, Constants.WIDTH * Constants.SCALE, Constants.HEIGHT * Constants.SCALE, null);
         g2.dispose();
         bs.show();
     }
 
     private void init() {
 
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(Constants.WIDTH, Constants.HEIGHT, BufferedImage.TYPE_INT_RGB);
         g = (Graphics2D) image.getGraphics();
 
         // Antialiasing for the titlescreen

@@ -3,7 +3,7 @@ package Game.GameState;
 import Game.Input.Key;
 
 import java.awt.*;
-import Game.Game;
+import Game.Tools.Constants;
 
 public class PauseState extends GameState {
 
@@ -27,10 +27,10 @@ public class PauseState extends GameState {
     @Override
     public void render(Graphics2D g) {
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+        g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
         g.setColor(Color.WHITE);
         g.setFont(font);
-        g.drawString("Game Paused", Game.WIDTH / 3 + font.getSize(), Game.HEIGHT / 2 - font.getSize());
+        g.drawString("Game Paused", Constants.WIDTH / 3 + font.getSize(), Constants.HEIGHT / 2 - font.getSize());
     }
 
     @Override
