@@ -13,43 +13,43 @@ public class SpriteSheet {
     public static SpriteSheet tileSheet = new SpriteSheet("/Textures/Tiles/spritesheet.png");
 
 
+    //////////////////////////////////////////////////////////////
+    /////////////////////       Class        /////////////////////
+    //////////////////////////////////////////////////////////////
 
     private final int w, h;
-    private BufferedImage image;
-    private BufferedImage[] sequence;
+    private BufferedImage sheet;
 
-    // Create a buffered image from path
+    /**
+     * Crate a spritesheet from a given path
+     * @param path  the directory of the image that shall be used to get a spritesheet
+     */
     public SpriteSheet(String path) {
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+            sheet = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
         } catch(Exception e) {
             e.printStackTrace();
         }
-        this.w = image.getWidth();
-        this.h = image.getHeight();
+        this.w = sheet.getWidth();
+        this.h = sheet.getHeight();
     }
 
-    // Create a subspritesheet from a spritesheet and fill the sequence array
-    // boolean createSequence is mainly used to create a image array for animations
-    public SpriteSheet(SpriteSheet sheet, int x, int y, int numLeft, int width, int height, boolean createSequence) {
-        this.w = width * numLeft;
+    /**
+     * Create a spritesheet of a spritesheet, this way I can load bigger spritesheets and get everything from an already loaded sheet
+     * @param sheet the spritesheet to be used
+     * @param x the x position on the spritesheet
+     * @param y the y position on the spritesheet
+     * @param numRight  number of sprites to get, reading left to right
+     * @param width the with of the sprites
+     * @param height the height of the sprites
+     */
+    public SpriteSheet(SpriteSheet sheet, int x, int y, int numRight, int width, int height) {
+        this.w = width * numRight;
         this.h = height;
-        BufferedImage seq = sheet.image.getSubimage(x * width, y * height, w, h);
-        if(createSequence) {
-            sequence = new BufferedImage[numLeft];
-            for(int i = 0; i < numLeft; i++) {
-                sequence[i] = seq.getSubimage(x + i, y, width, height);
-            }
-        }
+        this.sheet = sheet.sheet.getSubimage(x * width, y * height, w, h);
     }
 
-    // Can be null if it is not initialized
-    public BufferedImage[] getSequence() {
-        return sequence;
+    public BufferedImage getSheet() {
+        return sheet;
     }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
 }

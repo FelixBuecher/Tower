@@ -17,6 +17,7 @@ public class MenuState extends GameState {
     private int choice = 0;
     private final String[] options = {"New Game", "Load", "Option", "Quit"};
     private final int shadow = 2;
+    private int vol = 10;
 
     private Font titleFont, font, font2;
 
@@ -35,7 +36,7 @@ public class MenuState extends GameState {
             JukeBox.load("/Audio/SFX/menuoption.mp3", "menuoption");
             JukeBox.load("/Audio/SFX/menuselect.mp3", "menuselect");
 
-            // Loading background?
+            // Loading background
             bg = ImageIO.read(getClass().getResourceAsStream("/HUD/Wall.png"));
 
         } catch (Exception e) {
@@ -100,13 +101,13 @@ public class MenuState extends GameState {
 
     private void select() {
         if(choice == 0) {
-            JukeBox.play("menuselect", 30);
+            JukeBox.play("menuselect", vol);
             gsm.setState(GameStateManager.LEVEL1STATE);
         } else if(choice == 1){
-            JukeBox.play("menuselect", 30);
+            JukeBox.play("menuselect", vol);
             //PlayerSave.init();
         } else if(choice == 2){
-            JukeBox.play("menuselect", 30);
+            JukeBox.play("menuselect", vol);
         } else if(choice == 3) {
             System.exit(0);
         }
@@ -117,13 +118,13 @@ public class MenuState extends GameState {
         if(Key.isPressed(Key.E_KEY)) select();
         if(Key.isPressed(Key.UP)) {
             if(choice > 0) {
-                JukeBox.play("menuoption", 30);
+                JukeBox.play("menuoption", vol);
                 choice--;
             }
         }
         if(Key.isPressed(Key.DOWN)) {
             if(choice < options.length - 1) {
-                JukeBox.play("menuoption", 30);
+                JukeBox.play("menuoption", vol);
                 choice++;
             }
         }

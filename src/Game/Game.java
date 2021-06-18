@@ -123,13 +123,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Key.keySet(e.getKeyCode(), false);
     }
 
-//    public static void main(String[] args) {
-//        JFrame window = new JFrame("Artifact");
-//        window.add(new Game());
-//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        window.setResizable(false);
-//        window.pack();
-//        window.setLocationRelativeTo(null);
-//        window.setVisible(true);
-//    }
+    public static void main(String[] args) {
+        JFrame window = new JFrame("Artifact");
+        window.add(new Game());
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }
 }
