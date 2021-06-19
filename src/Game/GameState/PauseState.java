@@ -1,5 +1,6 @@
 package Game.GameState;
 
+import Game.Audio.JukeBox;
 import Game.Input.Key;
 
 import java.awt.*;

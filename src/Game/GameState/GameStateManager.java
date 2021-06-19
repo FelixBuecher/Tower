@@ -23,7 +23,6 @@ public class GameStateManager {
         gameStates = new GameState[NUMGAMESTATES];
         pauseState = new PauseState(this);
         paused = false;
-
         currentState = MENUSTATE;
         loadState(currentState);
     }

@@ -1,6 +1,6 @@
 package Game.Level;
 
-import Game.Tools.Position;
+import Game.Tools.Constants;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,14 +11,13 @@ import javax.imageio.ImageIO;
 
 public class Level {
 
-    private Position pos;
+    private double x, y;
     private int tileSize;
     private int w, h;
     private boolean shaking;
     private int intensity;
     private int[] tiles;
-    private int rowOffset;
-    private int colOffset;
+    private int yScroll, xScroll, xOffset, yOffset;
     private BufferedImage levelImage;
 
 
@@ -54,37 +53,27 @@ public class Level {
 
     public void update() {
         if(shaking) {
-            pos.addX(Math.random() * intensity - ((int) intensity >> 2));
-            pos.addY(Math.random() * intensity - ((int) intensity >> 2));
+            this.x += Math.random() * intensity - (intensity >> 2);
+            this.y += Math.random() * intensity - (intensity >> 2);
         }
     }
 
-    public void setPosition(Position pos) {
-        this.pos.addPosition(pos.getX() - this.pos.getX(), pos.getY() - this.pos.getY());
-
-        colOffset = (int) -this.pos.getX() / tileSize;
-        rowOffset = (int) -this.pos.getY() / tileSize;
-
+    public void setPosition(double x, double y) {
+        this.x += (x - this.x);
+        this.y += (y - this.y);
+        xScroll = (int) -this.x / tileSize;
+        yScroll = (int) -this.y / tileSize;
     }
 
     public void render(Graphics2D g) {
-//        for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++) {
-//
-//            if(row >= numRows) break;
-//
-//            for(int col = colOffset; col < colOffset + numColsToDraw; col++) {
-//
-//                if(col >= numCols) break;
-//                if(map[row][col] == 0) continue;
-//
-//                int rc = map[row][col];
-//                int r = rc / numTilesAcross;
-//                int c = rc % numTilesAcross;
-//
-//                g.drawImage(tiles[r][c].getImage(),(int)x + col * tileSize,(int)y + row * tileSize,null);
-//
-//            }
-//
-//        }
+        int x0 = xScroll - Constants.TILESIZE;
+        int x1 = (xScroll + Constants.WIDTH) >> 3;
+        int y0 = yScroll - Constants.TILESIZE;
+        int y1 = (yScroll + Constants.HEIGHT) >> 3;
+        for (int y = y0; y < y1; y++) {
+            for (int x = x0; x < x1; x++) {
+                g.drawImage(getTile(x, y).getSprite().getImage(), (int) this.x + x * tileSize, (int) this.y + y * tileSize, null);
+            }
+        }
     }
 }

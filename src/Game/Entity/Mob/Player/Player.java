@@ -3,7 +3,6 @@ package Game.Entity.Mob.Player;
 import Game.Entity.Mob.Mob;
 import Game.Graphics.Sprite;
 import Game.Level.Level;
-import Game.Tools.Position;
 
 public class Player extends Mob {
 
@@ -27,7 +26,11 @@ public class Player extends Mob {
 
     }
 
-    public Position getPos() {
-        return pos;
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

@@ -1,18 +1,20 @@
 package Game.GameState;
 
 import Game.Audio.JukeBox;
+import Game.Graphics.Sprite;
 import Game.Graphics.SpriteSheet;
 import Game.Input.Key;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import Game.Level.Tile;
 import Game.Tools.Constants;
 
 public class MenuState extends GameState {
 
     private BufferedImage cursor;
-    private BufferedImage bg;
+    private Image bg;
     private int choice = 0;
     private final String[] options = {"New Game", "Load", "Option", "Quit"};
     private final int shadow = 2;
@@ -32,6 +34,7 @@ public class MenuState extends GameState {
 
             // Loading background
             bg = ImageIO.read(getClass().getResourceAsStream("/HUD/Wall.png"));
+            bg = bg.getScaledInstance(Constants.WIDTH, Constants.HEIGHT, 0);
 
             // Loading sfx
             JukeBox.load("/Audio/SFX/menuoption.mp3", "menuoption");
@@ -67,7 +70,7 @@ public class MenuState extends GameState {
         int fs = font.getSize();
 
         // Drawing the background
-        g.drawImage(bg.getScaledInstance(Constants.WIDTH, Constants.HEIGHT, 0), 0, 0, null);
+        g.drawImage(bg, null, null);
 
         // Drawing the title
         g.setColor(Color.GRAY);
@@ -91,10 +94,10 @@ public class MenuState extends GameState {
 
 
         // Draw selection cursor
-        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 0.9), null);
-        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0.1), null);
-        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1.1), null);
-        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2.1), null);
+        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 1), null);
+        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0), null);
+        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1), null);
+        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2), null);
 
         // Credit
         g.setFont(font2);

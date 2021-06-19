@@ -10,13 +10,14 @@ public class Sprite {
     /////////////////////    Tile sprites    /////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static Sprite grass = new Sprite(SpriteSheet.tileSheet,0,0);
-    public static Sprite grassStone = new Sprite(SpriteSheet.tileSheet,1,0);
-    public static Sprite grassFlower0 = new Sprite(SpriteSheet.tileSheet,2,0);
-    public static Sprite voidSprite = new Sprite(SpriteSheet.tileSheet,15,15);
+    public static Sprite grass = createSprite(SpriteSheet.tileSheet,0,0);
+    public static Sprite grassStone = createSprite(SpriteSheet.tileSheet,1,0);
+    public static Sprite grassFlower0 = createSprite(SpriteSheet.tileSheet,2,0);
+    public static Sprite voidSprite = createSprite(SpriteSheet.tileSheet,15,15);
 
 
-    public static Sprite playerSprite = new Sprite(SpriteSheet.playerSheet, 0, 0, 16, 16);
+    public static Sprite playerSprite = createSprite(SpriteSheet.playerSheet, 0, 0, 16, 16);
+    public static Sprite playerSequence = createSequence(SpriteSheet.playerSheet, 0, 0, 4, 16, 16);
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
@@ -32,8 +33,8 @@ public class Sprite {
      * @param x the x position on the sheet
      * @param y the y position on the sheet
      */
-    public Sprite(SpriteSheet sheet, int x, int y) {
-        new Sprite(sheet, x, y, Constants.TILESIZE, Constants.TILESIZE);
+    public static Sprite createSprite(SpriteSheet sheet, int x, int y) {
+        return new Sprite(sheet, x, y, Constants.TILESIZE, Constants.TILESIZE, false);
     }
 
     /**
@@ -44,8 +45,8 @@ public class Sprite {
      * @param w the width of the sprite
      * @param h the height of the sprite
      */
-    public Sprite(SpriteSheet sheet, int x, int y, int w, int h) {
-        new Sprite(sheet, x, y, w, h, false);
+    public static Sprite createSprite(SpriteSheet sheet, int x, int y, int w, int h) {
+        return new Sprite(sheet, x, y, w, h, false);
     }
 
     /**
@@ -57,10 +58,8 @@ public class Sprite {
      * @param h the height of the sprite
      * @param pixelPerfect if you want to calculate x and y on your own
      */
-    public Sprite(SpriteSheet sheet, int x, int y, int w, int h, boolean pixelPerfect) {
-        this.sheet = sheet;
-        if(pixelPerfect) image = sheet.getSheet().getSubimage(x, y, w, h);
-        if(!pixelPerfect) image = sheet.getSheet().getSubimage(x * w, y * h, w, h);
+    public static Sprite createSprite(SpriteSheet sheet, int x, int y, int w, int h, boolean pixelPerfect) {
+        return new Sprite(sheet, x, y, w, h, pixelPerfect);
     }
 
     /**
@@ -72,10 +71,21 @@ public class Sprite {
      * @param w the width of the sprite
      * @param h the height of the sprite
      */
-    public Sprite(SpriteSheet sheet, int x, int y, int numRight, int w, int h) {
+    public static Sprite createSequence(SpriteSheet sheet, int x, int y, int numRight, int w, int h) {
+        return new Sprite(sheet, x, y, numRight, w, h);
+    }
+
+    private Sprite(SpriteSheet sheet, int x, int y, int w, int h, boolean pixelPerfect) {
+        this.sheet = sheet;
+        if(pixelPerfect) this.image = this.sheet.getSheet().getSubimage(x, y, w, h);
+        if(!pixelPerfect) this.image = this.sheet.getSheet().getSubimage(x * w, y * h, w, h);
+    }
+
+    private Sprite(SpriteSheet sheet, int x, int y, int numRight, int w, int h) {
         sequence = new BufferedImage[numRight];
+        this.sheet = sheet;
         for(int i = 0; i < numRight; i++) {
-            sequence[i] = sheet.getSheet().getSubimage(x + i, y, w, h);
+            sequence[i] = this.sheet.getSheet().getSubimage(x + i * w, y, w, h);
         }
     }
 

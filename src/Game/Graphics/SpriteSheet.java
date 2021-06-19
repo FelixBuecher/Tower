@@ -11,7 +11,7 @@ public class SpriteSheet {
 
     public static SpriteSheet tileSheet = new SpriteSheet(  "/Textures/Tiles/spritesheet.png");
     public static SpriteSheet playerSheet = new SpriteSheet("/Textures/Sprites/character.png");
-
+    public static SpriteSheet test = new SpriteSheet(playerSheet, 0, 0, 1, 16, 16);
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
     //////////////////////////////////////////////////////////////

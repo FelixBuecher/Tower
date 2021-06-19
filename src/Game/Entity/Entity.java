@@ -2,14 +2,13 @@ package Game.Entity;
 
 import Game.Graphics.Sprite;
 import Game.Level.Level;
-import Game.Tools.Position;
 
 import java.awt.*;
 
 public class Entity {
 
     protected Sprite sprite;
-    protected Position pos;
+    protected double x, y;
     protected int w, h, cw, ch;
     protected Level level;
 
@@ -22,12 +21,13 @@ public class Entity {
 
     }
 
-    public void setPosition(Position pos) {
-        this.pos = pos;
+    public void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Rectangle getRectangle() {
-        return new Rectangle((int) pos.getX(), (int) pos.getY(), cw, ch);
+        return new Rectangle((int) x, (int) y, cw, ch);
     }
 
     public boolean intersects(Entity e) {
