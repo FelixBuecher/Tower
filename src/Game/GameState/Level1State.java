@@ -10,6 +10,13 @@ import Game.Tools.Constants;
 
 import java.awt.*;
 
+/**
+ * The first level of the game, for now its just a test level
+ * but I will use this class to extend and create more levels with it.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class Level1State extends GameState {
 
     private Player player;
@@ -25,7 +32,7 @@ public class Level1State extends GameState {
 
     @Override
     public void init() {
-        level = new Level("/Textures/Level/level2.png", Constants.TILESIZE);
+        level = new Level("/Textures/Level/level.png", Constants.TILESIZE);
 
         player = new Player(Sprite.playerSprite, level);
         player.setPosition(250, 250);
@@ -39,7 +46,7 @@ public class Level1State extends GameState {
     public void update() {
         handleInput();
         player.update();
-        level.setPosition(player.getX() - Constants.WIDTH / 2, player.getY() - Constants.HEIGHT / 2);
+        level.setPosition(player.getX() - (float) Constants.WIDTH / 2, player.getY() - (float) Constants.HEIGHT / 2);
         level.update();
     }
 
@@ -55,14 +62,14 @@ public class Level1State extends GameState {
     @Override
     public void handleInput() {
         if(Key.isPressed(Key.ESCAPE)) gsm.pause();
-        if(Key.isPressed(Key.UP)) player.setPosition(player.getX(), player.getY() - 128);
-        if(Key.isPressed(Key.DOWN)) player.setPosition(player.getX(), player.getY() + 128);
-        if(Key.isPressed(Key.LEFT)) player.setPosition(player.getX() - 128, player.getY());
+        if(Key.isPressed(Key.UP)) player.setPosition(player.getX(), player.getY() - 32);
+        if(Key.isPressed(Key.DOWN)) player.setPosition(player.getX(), player.getY() + 32);
+        if(Key.isPressed(Key.LEFT)) player.setPosition(player.getX() - 32, player.getY());
         if(Key.isPressed(Key.RIGHT)) {
-            player.setPosition(player.getX() + 128, player.getY());
+            player.setPosition(player.getX() + 32, player.getY());
             System.out.println(player.getX());
         }
-        if(blockInput || player.getHealth() == 0) return;
+//        if(blockInput || player.getHealth() == 0) return;
 //        player.setUp(Key.key[Key.UP]);
 //        player.setLeft(Key.key[Key.LEFT]);
 //        player.setDown(Key.key[Key.DOWN]);

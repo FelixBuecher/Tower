@@ -4,9 +4,9 @@ import java.awt.event.KeyEvent;
 
 /**
  * Handler for keyboard input.
- * 
- * @Author Felix Buecher
- * @Version 1.0
+ *
+ * @author Felix Buecher
+ * @version 1.0
  */
 public class Key {
 
@@ -36,9 +36,10 @@ public class Key {
     }
 
 	public static void update() {
-	    for(int i = 0; i < NUM_KEYS; i++) {
-	        prevKey[i] = key[i];
-        }
+        System.arraycopy(key, 0, prevKey, 0, NUM_KEYS);
+//        for(int i = 0; i < NUM_KEYS; i++) {
+//            prevKey[i] = key[i];
+//        }
 	}
 
     public static boolean isPressed(int i) {

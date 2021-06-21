@@ -7,8 +7,8 @@ import java.awt.event.MouseMotionListener;
 /**
  * Handler for mouse input.
  *
- * @Author Felix Buecher
- * @Version 1.0
+ * @author Felix Buecher
+ * @version 1.0
  */
 public class Mouse implements MouseListener, MouseMotionListener {
 

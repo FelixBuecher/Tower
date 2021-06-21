@@ -5,12 +5,20 @@ import Game.Tools.Constants;
 
 import java.awt.*;
 
+/**
+ * The gamestate manager, or state machine so to speak
+ * with this class I make sure that I am only in 1 level or screen at a time.
+ * It also helps me to make transitions between different game states easier.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class GameStateManager {
 
-    private GameState[] gameStates;
+    private final GameState[] gameStates;
     private int currentState;
 
-    private PauseState pauseState;
+    private final PauseState pauseState;
     private boolean paused;
 
     public static final int NUMGAMESTATES = 10;
@@ -54,6 +62,9 @@ public class GameStateManager {
         paused = false;
     }
 
+    /**
+     * Used to update the current gamestate
+     */
     public void update() {
         if(paused) {
             pauseState.update();
@@ -64,6 +75,10 @@ public class GameStateManager {
         }
     }
 
+    /**
+     * Used to render the current gamestate
+     * @param g Graphics2D
+     */
     public void render(Graphics2D g) {
         if(paused) {
             pauseState.render(g);

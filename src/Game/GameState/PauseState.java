@@ -1,11 +1,19 @@
 package Game.GameState;
 
-import Game.Audio.JukeBox;
 import Game.Input.Key;
 
 import java.awt.*;
 import Game.Tools.Constants;
 
+/**
+ * Simple pause state, I am not quite sure if I will use this in the game,
+ * but I will keep it for now, I might be restructure it to an option state
+ * later on in the production. It basically is just a placeholder for when you
+ * press esc in the game.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class PauseState extends GameState {
 
     private Font font;

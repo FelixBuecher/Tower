@@ -5,9 +5,17 @@ import Game.Input.Key;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 import Game.Tools.Constants;
 
+/**
+ * For now its just the title screen, but I can probably reuse this class
+ * and create different useful tools with it, for example an inventory.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class MenuState extends GameState {
 
     private BufferedImage cursor;
@@ -22,7 +30,7 @@ public class MenuState extends GameState {
         super(gsm);
         try {
             // Load selection cursor
-            cursor = ImageIO.read(getClass().getResourceAsStream("/Textures/GUI/Cursor.png"));
+            cursor = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/GUI/Cursor.png")));
 
             // Setting up fonts
             titleFont = new Font("Times New Roman", Font.PLAIN, Constants.WIDTH / 9);
@@ -30,7 +38,7 @@ public class MenuState extends GameState {
             font2 = new Font("Arial", Font.PLAIN, Constants.WIDTH / 42);
 
             // Loading background
-            bg = ImageIO.read(getClass().getResourceAsStream("/Textures/GUI/Wall.png"));
+            bg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/GUI/Wall.png")));
             bg = bg.getScaledInstance(Constants.WIDTH, Constants.HEIGHT, 0);
 
             // Loading sfx
@@ -91,10 +99,10 @@ public class MenuState extends GameState {
 
 
         // Draw selection cursor
-        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 1), null);
-        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0), null);
-        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1), null);
-        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2), null);
+        if(choice == 0) g.drawImage(cursor, x - 32, (y - fs), null);
+        else if(choice == 1) g.drawImage(cursor, x - 32, (y), null);
+        else if(choice == 2) g.drawImage(cursor, x - 32, (y + fs), null);
+        else if(choice == 3) g.drawImage(cursor, x - 32, (y + fs * 2), null);
 
         // Credit
         g.setFont(font2);

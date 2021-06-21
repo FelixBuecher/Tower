@@ -2,16 +2,27 @@ package Game.Graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
+/**
+ * As stated in the sprite class I chose to make this separately
+ * so this class is used to load complete tilesheets or spritesheets
+ * and I prefer not to use a whole tilesheet in the game I rather use
+ * single images so this is basically just a class for sprite.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class SpriteSheet {
 
     //////////////////////////////////////////////////////////////
-    ///////////////////// Tile sprite sheets /////////////////////
+    /////////////////////   Sprite sheets    /////////////////////
     //////////////////////////////////////////////////////////////
 
     public static SpriteSheet tileSheet = new SpriteSheet(  "/Textures/Tiles/spritesheet.png");
     public static SpriteSheet playerSheet = new SpriteSheet("/Textures/Sprites/character.png");
-    public static SpriteSheet test = new SpriteSheet(playerSheet, 0, 0, 1, 16, 16);
+
+
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
     //////////////////////////////////////////////////////////////
@@ -24,7 +35,7 @@ public class SpriteSheet {
      */
     public SpriteSheet(String path) {
         try {
-            sheet = ImageIO.read(SpriteSheet.class.getResourceAsStream(path));
+            sheet = ImageIO.read(Objects.requireNonNull(SpriteSheet.class.getResourceAsStream(path)));
         } catch(Exception e) {
             e.printStackTrace();
         }

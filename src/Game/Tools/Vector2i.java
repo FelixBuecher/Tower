@@ -3,8 +3,8 @@ package Game.Tools;
 /**
  * Integer vector class.
  *
- * @Author Felix Buecher
- * @Version 1.0
+ * @author Felix Buecher
+ * @version 1.0
  */
 public class Vector2i {
 

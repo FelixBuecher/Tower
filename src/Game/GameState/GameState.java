@@ -2,6 +2,12 @@ package Game.GameState;
 
 import java.awt.Graphics2D;
 
+/**
+ * The superclass for all gamestates that I will add to the game.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public abstract class GameState {
 
     protected GameStateManager gsm;

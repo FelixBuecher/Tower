@@ -4,10 +4,21 @@ import Game.Tools.Constants;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Sprite class to load single images from a spritesheet,
+ * I could have probably done it together with spritesheet in a single class
+ * but I prefer to have it separately.
+ * Tile sprites are static initiated here and can be called from other classes
+ * this way I only need to load them once and can call them as much as I like
+ * without creating a new instance everytime.
+ *
+ * @author Felix Buecher
+ * @version 1.0
+ */
 public class Sprite {
 
     //////////////////////////////////////////////////////////////
-    /////////////////////    Tile sprites    /////////////////////
+    /////////////////////      Sprites       /////////////////////
     //////////////////////////////////////////////////////////////
 
     public static Sprite grass = createSprite(SpriteSheet.tileSheet,0,0);
