@@ -17,7 +17,6 @@ public class Level {
     private boolean shaking;
     private int intensity;
     private int[] tiles;
-    private int yScroll, xScroll, xOffset, yOffset;
     private BufferedImage levelImage;
 
 
@@ -59,21 +58,20 @@ public class Level {
     }
 
     public void setPosition(double x, double y) {
-        this.x += (x - this.x);
-        this.y += (y - this.y);
-        xScroll = (int) -this.x / tileSize;
-        yScroll = (int) -this.y / tileSize;
+        this.x = x;
+        this.y = y;
     }
 
     public void render(Graphics2D g) {
-        int x0 = xScroll - Constants.TILESIZE;
-        int x1 = (xScroll + Constants.WIDTH) >> 3;
-        int y0 = yScroll - Constants.TILESIZE;
-        int y1 = (yScroll + Constants.HEIGHT) >> 3;
+        int x0 = (int) x >> 4;
+        int x1 = (int) (x + Constants.WIDTH + tileSize) >> 4;
+        int y0 = (int) y >> 4;
+        int y1 = (int) (y + Constants.HEIGHT + tileSize) >> 4;
         for (int y = y0; y < y1; y++) {
             for (int x = x0; x < x1; x++) {
-                g.drawImage(getTile(x, y).getSprite().getImage(), (int) this.x + x * tileSize, (int) this.y + y * tileSize, null);
+                g.drawImage(getTile(x, y).getSprite().getImage(), (x << 4) - (int) this.x, (y << 4) - (int) this.y, null);
             }
         }
+
     }
 }

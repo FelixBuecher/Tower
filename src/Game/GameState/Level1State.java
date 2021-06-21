@@ -25,12 +25,12 @@ public class Level1State extends GameState {
 
     @Override
     public void init() {
-        level = new Level("/Textures/Level/level.png", Constants.TILESIZE);
+        level = new Level("/Textures/Level/level2.png", Constants.TILESIZE);
 
         player = new Player(Sprite.playerSprite, level);
         player.setPosition(250, 250);
 
-        //gui = new GUI(player);
+        gui = new GUI(player);
         JukeBox.load("/Audio/Music/level1.mp3", "level1");
         JukeBox.loop("level1", Constants.VOLUME);
     }
@@ -39,7 +39,7 @@ public class Level1State extends GameState {
     public void update() {
         handleInput();
         player.update();
-        level.setPosition(Constants.WIDTH / 2 - player.getX(), Constants.HEIGHT / 2 - player.getY());
+        level.setPosition(player.getX() - Constants.WIDTH / 2, player.getY() - Constants.HEIGHT / 2);
         level.update();
     }
 
@@ -49,16 +49,19 @@ public class Level1State extends GameState {
 
         player.render(g);
 
-        //gui.render(g);
+        gui.render(g);
     }
 
     @Override
     public void handleInput() {
         if(Key.isPressed(Key.ESCAPE)) gsm.pause();
-        if(Key.isPressed(Key.UP)) player.setPosition(player.getX(), player.getY() - 20);
-        if(Key.isPressed(Key.DOWN)) player.setPosition(player.getX(), player.getY() + 20);
-        if(Key.isPressed(Key.LEFT)) player.setPosition(player.getX() - 20, player.getY());
-        if(Key.isPressed(Key.RIGHT)) player.setPosition(player.getX() + 20, player.getY());
+        if(Key.isPressed(Key.UP)) player.setPosition(player.getX(), player.getY() - 128);
+        if(Key.isPressed(Key.DOWN)) player.setPosition(player.getX(), player.getY() + 128);
+        if(Key.isPressed(Key.LEFT)) player.setPosition(player.getX() - 128, player.getY());
+        if(Key.isPressed(Key.RIGHT)) {
+            player.setPosition(player.getX() + 128, player.getY());
+            System.out.println(player.getX());
+        }
         if(blockInput || player.getHealth() == 0) return;
 //        player.setUp(Key.key[Key.UP]);
 //        player.setLeft(Key.key[Key.LEFT]);

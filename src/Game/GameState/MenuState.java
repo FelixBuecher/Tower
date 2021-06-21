@@ -1,14 +1,11 @@
 package Game.GameState;
 
 import Game.Audio.JukeBox;
-import Game.Graphics.Sprite;
-import Game.Graphics.SpriteSheet;
 import Game.Input.Key;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import Game.Level.Tile;
 import Game.Tools.Constants;
 
 public class MenuState extends GameState {
@@ -25,7 +22,7 @@ public class MenuState extends GameState {
         super(gsm);
         try {
             // Load selection cursor
-            cursor = ImageIO.read(getClass().getResourceAsStream("/HUD/Cursor.png"));
+            cursor = ImageIO.read(getClass().getResourceAsStream("/Textures/GUI/Cursor.png"));
 
             // Setting up fonts
             titleFont = new Font("Times New Roman", Font.PLAIN, Constants.WIDTH / 9);
@@ -33,7 +30,7 @@ public class MenuState extends GameState {
             font2 = new Font("Arial", Font.PLAIN, Constants.WIDTH / 42);
 
             // Loading background
-            bg = ImageIO.read(getClass().getResourceAsStream("/HUD/Wall.png"));
+            bg = ImageIO.read(getClass().getResourceAsStream("/Textures/GUI/Wall.png"));
             bg = bg.getScaledInstance(Constants.WIDTH, Constants.HEIGHT, 0);
 
             // Loading sfx

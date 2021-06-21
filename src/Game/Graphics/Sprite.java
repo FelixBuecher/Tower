@@ -16,7 +16,7 @@ public class Sprite {
     public static Sprite voidSprite = createSprite(SpriteSheet.tileSheet,15,15);
 
 
-    public static Sprite playerSprite = createSprite(SpriteSheet.playerSheet, 0, 0, 16, 16);
+    public static Sprite playerSprite = createSprite(SpriteSheet.playerSheet, 0, 0);
     public static Sprite playerSequence = createSequence(SpriteSheet.playerSheet, 0, 0, 4, 16, 16);
 
     //////////////////////////////////////////////////////////////

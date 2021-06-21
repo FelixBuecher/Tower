@@ -10,16 +10,12 @@ public class Player extends Mob {
         super(sprite, level);
     }
 
-    public int getLives() {
-        return 0;
-    }
-
     public int getHealth() {
-        return 0;
+        return 5;
     }
 
     public String getTimeToString() {
-        return "";
+        return "1:23";
     }
 
     public void update() {
