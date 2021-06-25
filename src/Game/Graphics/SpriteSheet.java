@@ -1,8 +1,8 @@
 package Game.Graphics;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
+
+import static Game.Tools.Util.loadImage;
 
 /**
  * As stated in the sprite class I chose to make this separately
@@ -19,8 +19,8 @@ public class SpriteSheet {
     /////////////////////   Sprite sheets    /////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static SpriteSheet tileSheet = new SpriteSheet(  "/Textures/Tiles/spritesheet.png");
-    public static SpriteSheet playerSheet = new SpriteSheet("/Textures/Sprites/character.png");
+    public static SpriteSheet tileSheet = new SpriteSheet(  "spritesheet32");
+    public static SpriteSheet playerSheet = new SpriteSheet("character32");
 
 
     //////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ public class SpriteSheet {
      */
     public SpriteSheet(String path) {
         try {
-            sheet = ImageIO.read(Objects.requireNonNull(SpriteSheet.class.getResourceAsStream(path)));
+            sheet = loadImage(path);
         } catch(Exception e) {
             e.printStackTrace();
         }

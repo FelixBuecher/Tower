@@ -1,5 +1,7 @@
 package Game.Audio;
 
+import Game.Tools.Constants;
+
 import javax.sound.sampled.*;
 import java.util.HashMap;
 import java.util.Objects;
@@ -32,12 +34,15 @@ public class JukeBox {
      * the mp3spi library.
      * @param s the path to the sound file
      * @param n the string to map the file to
+     * @param type if true you load from SFX if false you load from Music
      */
-	public static void load(String s, String n) {
+	public static void load(String s, String n, boolean type) {
 		if(clips.get(n) != null) return;
 		Clip clip;
+        String path = Constants.MUSICP;
+        if(type) path = Constants.SFXP;
 		try {			
-			AudioInputStream ais = AudioSystem.getAudioInputStream(Objects.requireNonNull(JukeBox.class.getResourceAsStream(s)));
+			AudioInputStream ais = AudioSystem.getAudioInputStream(Objects.requireNonNull(JukeBox.class.getResourceAsStream(path + s + ".mp3")));
 			AudioFormat baseFormat = ais.getFormat();
 			AudioFormat decodeFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
                     baseFormat.getSampleRate(),

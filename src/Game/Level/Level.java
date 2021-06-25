@@ -51,7 +51,7 @@ public class Level {
 
     private void loadLevel(String path) {
         try {
-            BufferedImage levelImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+            BufferedImage levelImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(Constants.LEVELP + path + ".png")));
             this.w = levelImage.getWidth();
             this.h = levelImage.getHeight();
             tiles = new int[w * h];
@@ -93,6 +93,14 @@ public class Level {
     public void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     /**

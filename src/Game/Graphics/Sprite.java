@@ -28,7 +28,7 @@ public class Sprite {
 
 
     public static Sprite playerSprite = createSprite(SpriteSheet.playerSheet, 0, 0);
-    public static Sprite playerSequence = createSequence(SpriteSheet.playerSheet, 0, 0, 4, 16, 16);
+    public static Sprite playerSequence = createSequence(SpriteSheet.playerSheet, 0, 0, 4, 32, 32);
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////
@@ -88,13 +88,16 @@ public class Sprite {
 
     private Sprite(SpriteSheet sheet, int x, int y, int w, int h, boolean pixelPerfect) {
         this.sheet = sheet;
-        if(pixelPerfect) this.image = this.sheet.getSheet().getSubimage(x, y, w, h);
-        if(!pixelPerfect) this.image = this.sheet.getSheet().getSubimage(x * w, y * h, w, h);
+        if(pixelPerfect) this.image = sheet.getSheet().getSubimage(x, y, w, h);
+        if(!pixelPerfect) this.image = sheet.getSheet().getSubimage(x * w, y * h, w, h);
+        sequence = new BufferedImage[1];
+        sequence[0] = image;
     }
 
     private Sprite(SpriteSheet sheet, int x, int y, int numRight, int w, int h) {
-        sequence = new BufferedImage[numRight];
         this.sheet = sheet;
+        this.image = sheet.getSheet().getSubimage(x, y, w, h);
+        sequence = new BufferedImage[numRight];
         for(int i = 0; i < numRight; i++) {
             sequence[i] = this.sheet.getSheet().getSubimage(x + i * w, y, w, h);
         }
@@ -107,4 +110,5 @@ public class Sprite {
     public BufferedImage[] getSequence() {
         return sequence;
     }
+
 }

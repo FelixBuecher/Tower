@@ -17,7 +17,7 @@ import java.awt.*;
  * @author Felix Buecher
  * @version 1.0
  */
-public class Level1State extends GameState {
+public class Level1 extends GameState {
 
     private Player player;
     private Level level;
@@ -25,20 +25,20 @@ public class Level1State extends GameState {
     private boolean blockInput = false;
 
 
-    public Level1State(GameStateManager gsm) {
+    public Level1(GameStateManager gsm) {
         super(gsm);
         init();
     }
 
     @Override
     public void init() {
-        level = new Level("/Textures/Level/level.png", Constants.TILESIZE);
+        level = new Level("level", Constants.TILESIZE);
 
         player = new Player(Sprite.playerSprite, level);
-        player.setPosition(250, 250);
+        player.setPosition(50, 50);
 
         gui = new GUI(player);
-        JukeBox.load("/Audio/Music/level1.mp3", "level1");
+        JukeBox.load("level1", "level1", false);
         JukeBox.loop("level1", Constants.VOLUME);
     }
 
@@ -62,18 +62,13 @@ public class Level1State extends GameState {
     @Override
     public void handleInput() {
         if(Key.isPressed(Key.ESCAPE)) gsm.pause();
-        if(Key.isPressed(Key.UP)) player.setPosition(player.getX(), player.getY() - 32);
-        if(Key.isPressed(Key.DOWN)) player.setPosition(player.getX(), player.getY() + 32);
-        if(Key.isPressed(Key.LEFT)) player.setPosition(player.getX() - 32, player.getY());
-        if(Key.isPressed(Key.RIGHT)) {
-            player.setPosition(player.getX() + 32, player.getY());
-            System.out.println(player.getX());
-        }
 //        if(blockInput || player.getHealth() == 0) return;
-//        player.setUp(Key.key[Key.UP]);
-//        player.setLeft(Key.key[Key.LEFT]);
-//        player.setDown(Key.key[Key.DOWN]);
-//        player.setRight(Key.key[Key.RIGHT]);
+        player.setUp(Key.key[Key.UP]);
+        player.setLeft(Key.key[Key.LEFT]);
+        player.setDown(Key.key[Key.DOWN]);
+        player.setRight(Key.key[Key.RIGHT]);
+        player.setShift(Key.key[Key.SHIFT]);
+        if(Key.isPressed(Key.E_KEY)) player.reduceHealth();
 //        player.setJumping(Key.key[Key.BUTTON1]);
 //        player.setDashing(Key.key[Key.BUTTON2]);
 //        if(Key.isPressed(Key.BUTTON3)) player.setAttacking();

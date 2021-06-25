@@ -2,12 +2,12 @@ package Game.GameState;
 
 import Game.Audio.JukeBox;
 import Game.Input.Key;
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 import Game.Tools.Constants;
+
+import static Game.Tools.Util.loadImage;
 
 /**
  * For now its just the title screen, but I can probably reuse this class
@@ -16,7 +16,7 @@ import Game.Tools.Constants;
  * @author Felix Buecher
  * @version 1.0
  */
-public class MenuState extends GameState {
+public class Menu extends GameState {
 
     private BufferedImage cursor;
     private Image bg;
@@ -26,11 +26,11 @@ public class MenuState extends GameState {
 
     private Font titleFont, font, font2;
 
-    public MenuState(GameStateManager gsm) {
+    public Menu(GameStateManager gsm) {
         super(gsm);
         try {
             // Load selection cursor
-            cursor = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/GUI/Cursor.png")));
+            cursor = loadImage("Cursor");
 
             // Setting up fonts
             titleFont = new Font("Times New Roman", Font.PLAIN, Constants.WIDTH / 9);
@@ -38,15 +38,16 @@ public class MenuState extends GameState {
             font2 = new Font("Arial", Font.PLAIN, Constants.WIDTH / 42);
 
             // Loading background
-            bg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/GUI/Wall.png")));
+//            bg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/GUI/Wall.png")));
+            bg = loadImage("Wall");
             bg = bg.getScaledInstance(Constants.WIDTH, Constants.HEIGHT, 0);
 
             // Loading sfx
-            JukeBox.load("/Audio/SFX/menuoption.mp3", "menuoption");
-            JukeBox.load("/Audio/SFX/menuselect.mp3", "menuselect");
+            JukeBox.load("menuoption", "menuoption", true);
+            JukeBox.load("menuselect", "menuselect", true);
 
             // Loading music
-            JukeBox.load("/Audio/Music/level1.mp3", "level1");
+            JukeBox.load("level1", "level1", false);
             JukeBox.loop("level1",  Constants.VOLUME);
 
 
@@ -99,10 +100,10 @@ public class MenuState extends GameState {
 
 
         // Draw selection cursor
-        if(choice == 0) g.drawImage(cursor, x - 32, (y - fs), null);
-        else if(choice == 1) g.drawImage(cursor, x - 32, (y), null);
-        else if(choice == 2) g.drawImage(cursor, x - 32, (y + fs), null);
-        else if(choice == 3) g.drawImage(cursor, x - 32, (y + fs * 2), null);
+        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 0.7), null);
+        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0.25), null);
+        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1.25), null);
+        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2.25), null);
 
         // Credit
         g.setFont(font2);

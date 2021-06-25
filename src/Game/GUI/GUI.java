@@ -3,10 +3,10 @@ package Game.GUI;
 import Game.Entity.Mob.Player.Player;
 import Game.Tools.Constants;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
+
+import static Game.Tools.Util.loadImage;
 
 /**
  * Graphical user interface class, this calss will be used
@@ -20,9 +20,9 @@ public class GUI {
     private final Player player;
 
     private BufferedImage heart;
-
+    private Image life;
     /*
-     * Maybe I should make this more flexible to I can dynamically add GUI
+     * Maybe I should make this more flexible so I can dynamically add GUI
      * elements based on level (if you are underwater something like air
      * that you normally don't care about for example)
      */
@@ -35,8 +35,8 @@ public class GUI {
         player = p;
         try {
             // Read in the image for the attribute
-            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Textures/Sprites/character.png")));
-            heart = image.getSubimage(0, 0, 13, 12);
+            BufferedImage image = loadImage("character32");
+            heart = image.getSubimage(0, 0, 32, 32);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -48,11 +48,20 @@ public class GUI {
      */
     public void render(Graphics2D g) {
         // An example to draw something based on the player attributes
-        for(int i = 0; i < player.getHealth(); i++) {
-            g.drawImage(heart, 10 + i * 15, 10, null);
+        g.setFont(new Font("Comfortaa", Font.PLAIN, 10));
+        g.setColor(Color.decode("0x948668"));
+        g.fillRect(0, 0, 250, 50);
+        if(player.getHealth() > 0) {
+            g.setColor(Color.RED);
+            g.setStroke(new BasicStroke(10));
+            g.drawLine(42, 42, (int) (42 + 188 * (player.getHealth() / player.getMaxHealth())), 42);
         }
+        g.drawImage(heart, 0, 10, null);
         g.setColor(java.awt.Color.WHITE);
-        g.drawString(player.getTimeToString(), (float) (Constants.WIDTH * 0.9), 20);
+        g.drawString((int) player.getHealth() + " / " + (int) player.getMaxHealth(), 120, 46);
+        g.setColor(java.awt.Color.WHITE);
+//        g.drawString("Jommy die Legende", (float) (Constants.WIDTH * 0.85), 20);
+
     }
 
 }

@@ -4,20 +4,20 @@ import Game.GameState.GameStateManager;
 import Game.Input.Key;
 import Game.Tools.Constants;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
     // Game thread
     private Thread thread;
     private boolean running;
-    private int FPS = 60;
-    private long targetTime = 1000 / FPS;
 
     // Image
     private BufferedImage image;
@@ -26,11 +26,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     // Game state manager
     private GameStateManager gsm;
 
-    // Other
-    private static String title = "Tower";
-
     public Game() {
-        super();
         setPreferredSize(new Dimension(Constants.WIDTH * Constants.SCALE, Constants.HEIGHT * Constants.SCALE));
         setFocusable(true);
         requestFocus();
@@ -51,13 +47,19 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     private void render() {
-        gsm.render(g);
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
             return;
         }
-        Graphics g2 = bs.getDrawGraphics();// getGraphics();
+
+        gsm.render(g);
+
+        // Create lines that are showing the center of the screen
+//        g.drawLine(Constants.WIDTH / 2, 0, Constants.WIDTH / 2, Constants.HEIGHT);
+//        g.drawLine(0, Constants.HEIGHT / 2, Constants.WIDTH, Constants.HEIGHT / 2);
+
+        Graphics g2 = bs.getDrawGraphics();
         g2.drawImage(image, 0, 0, Constants.WIDTH * Constants.SCALE, Constants.HEIGHT * Constants.SCALE, null);
         g2.dispose();
         bs.show();
@@ -96,7 +98,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println(title + frames + " FPS " + updates + " UPS");
+                System.out.println(Constants.TITLE + frames + " FPS " + updates + " UPS");
                 updates = 0;
                 frames = 0;
             }
@@ -120,7 +122,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public static void main(String[] args) {
-        JFrame window = new JFrame("Artifact");
+        JFrame window = new JFrame(Constants.TITLE);
         window.add(new Game());
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

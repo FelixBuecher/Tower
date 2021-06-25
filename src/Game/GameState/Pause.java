@@ -14,11 +14,11 @@ import Game.Tools.Constants;
  * @author Felix Buecher
  * @version 1.0
  */
-public class PauseState extends GameState {
+public class Pause extends GameState {
 
     private Font font;
 
-    public PauseState(GameStateManager gsm) {
+    public Pause(GameStateManager gsm) {
         super(gsm);
         font = new Font("Century Gothic", Font.PLAIN, 14);
     }
