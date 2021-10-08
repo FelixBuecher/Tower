@@ -2,10 +2,10 @@ package game.entity;
 
 import game.graphics.Sprite;
 import game.level.Level;
-import game.tools.Constants;
-
+import game.util.Constants;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 /**
  * This class is the general entity class, that is used to to create basic
@@ -22,6 +22,8 @@ public class Entity {
     protected double x, y;
     protected int w, h, cw, ch; // Dimensions and collision dimensions
     protected boolean drawCollision = false;
+    protected boolean remove = false;
+    protected final Random random = new Random();
 
     public Entity(Sprite sprite, Level level) {
         this.sprite = sprite;
@@ -31,6 +33,10 @@ public class Entity {
         h = image.getHeight();
         cw = image.getWidth();
         ch = image.getHeight();
+    }
+
+    public Entity() {
+
     }
 
     public void setPosition(double x, double y) {
@@ -58,6 +64,7 @@ public class Entity {
     public double getY() {
         return y;
     }
+
     public void setDrawCollision() {
         drawCollision = !drawCollision;
     }
@@ -76,8 +83,11 @@ public class Entity {
         return getRectangle().intersects(r);
     }
 
+    public void update() {
+
+    }
+
     public void render(Graphics2D g) {
-        // Draw collision hitbox
         if (drawCollision) {
             g.setColor(Color.RED);
             Rectangle r = getRectangle();
@@ -87,12 +97,16 @@ public class Entity {
         }
     }
 
+    public boolean remove() {
+        return remove;
+    }
+
     public boolean collision(double x, double y) {
         // Default is no collision
         boolean solid = false;
 
         // Getting tiles near the corners of the entity that is checked
-        int leftT = (int) (Math.ceil(x - cw / 2) + 1) / Constants.TILESIZE;
+        int leftT = (int) (Math.ceil(x - cw / 2.0) + 1) / Constants.TILESIZE;
         int rightT = (int) (Math.ceil(x + cw / 2.0) - 1) / Constants.TILESIZE;
         int topT = (int) (Math.ceil(y - ch / 2.0) + 1) / Constants.TILESIZE;
         int botT = (int) (Math.ceil(y + ch / 2.0) - 1) / Constants.TILESIZE;
@@ -103,11 +117,16 @@ public class Entity {
         // Checking for collisions between tiles, if the entity is bigger than the normal tilesize
         for (int i = 0; i <= xCol; i++) {
             for (int j = 0; j <= yCol; j++) {
-                if (level.getTile(rightT - i, topT).isSolid()
+                if (level.getTile(rightT - i, topT) == null
+                        || level.getTile(rightT, botT - j) == null
+                        || level.getTile(leftT, topT + j) == null
+                        || level.getTile(leftT + i, botT) == null)
+                    solid = true;
+                else if (level.getTile(rightT - i, topT).isSolid()
                         || level.getTile(rightT, botT - j).isSolid()
                         || level.getTile(leftT, topT + j).isSolid()
                         || level.getTile(leftT + i, botT).isSolid())
-                        solid = true;
+                    solid = true;
             }
         }
         return solid;

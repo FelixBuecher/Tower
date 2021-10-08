@@ -1,11 +1,14 @@
 package game.gamestate;
 
 import game.audio.JukeBox;
-import game.input.Key;
+import game.input.KeyHandler;
+import game.input.MouseHandler;
+import game.util.Constants;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static game.tools.Util.loadImage;
+import static game.util.Util.loadImage;
 
 /**
  * For now its just the title screen, but I can probably reuse this class
@@ -46,7 +49,7 @@ public class Menu extends GameState {
 
             // Loading music
             JukeBox.load("level1", "level1", false);
-            JukeBox.loop("level1",  vol);
+            JukeBox.loop("level1",  Constants.v_bgm);
 
 
 
@@ -63,7 +66,7 @@ public class Menu extends GameState {
 
     @Override
     public void update() {
-        handleInput();
+
     }
 
     @Override
@@ -114,30 +117,36 @@ public class Menu extends GameState {
 
     private void select() {
         if(choice == 0) {
-            JukeBox.play("menuselect", vol);
+            JukeBox.play("menuselect", Constants.v_sfx);
             gsm.setState(GameStateManager.LEVEL1STATE);
         } else if(choice == 1){
-            JukeBox.play("menuselect", vol);
+            JukeBox.play("menuselect", Constants.v_sfx);
             //PlayerSave.init();
         } else if(choice == 2){
-            JukeBox.play("menuselect", vol);
+            JukeBox.play("menuselect", Constants.v_sfx);
         } else if(choice == 3) {
             System.exit(0);
         }
     }
 
     @Override
-    public void handleInput() {
-        if(Key.isPressed(Key.E_KEY)) select();
-        if(Key.isPressed(Key.UP)) {
+    public void input(MouseHandler mouse, KeyHandler key) {
+        key.down.tick();
+        key.up.tick();
+        key.menu.tick();
+
+        if(key.menu.clicked){
+            select();
+        }
+        if(key.up.clicked) {
             if(choice > 0) {
-                JukeBox.play("menuoption", vol);
+                JukeBox.play("menuoption", Constants.v_sfx);
                 choice--;
             }
         }
-        if(Key.isPressed(Key.DOWN)) {
+        if(key.down.clicked) {
             if(choice < options.length - 1) {
-                JukeBox.play("menuoption", vol);
+                JukeBox.play("menuoption", Constants.v_sfx);
                 choice++;
             }
         }

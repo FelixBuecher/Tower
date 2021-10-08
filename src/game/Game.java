@@ -1,23 +1,20 @@
 package game;
 
-import game.gui.GUI;
+import game.gui.PlayerUI;
 import game.gamestate.GameStateManager;
-import game.input.Key;
-import game.tools.Constants;
-
+import game.input.KeyHandler;
+import game.input.MouseHandler;
+import game.util.Constants;
 import javax.swing.JFrame;
-
 import java.awt.Dimension;
 import java.awt.Canvas;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 //import java.awt.RenderingHints;
 
-public final class Game extends Canvas implements Runnable, KeyListener {
+public final class Game extends Canvas implements Runnable {
 
     // Game thread
     private Thread thread;
@@ -27,12 +24,15 @@ public final class Game extends Canvas implements Runnable, KeyListener {
     private BufferedImage image;
     private Graphics2D g;
 
+    private MouseHandler mouseHandler;
+    private KeyHandler key;
+
     // Game state manager
     private GameStateManager gsm;
 
     public Game() {
-        setPreferredSize(new Dimension(Constants.WIDTH * Constants.SCALE,
-                Constants.HEIGHT * Constants.SCALE));
+        setPreferredSize(new Dimension( (int) (Constants.width * Constants.scale),
+                (int) (Constants.height * Constants.scale)));
         setFocusable(true);
         requestFocus();
     }
@@ -41,14 +41,12 @@ public final class Game extends Canvas implements Runnable, KeyListener {
         super.addNotify();
         if (thread == null) {
             thread = new Thread(this);
-            addKeyListener(this);
             thread.start();
         }
     }
 
     private void update() {
         gsm.update();
-        Key.update();
     }
 
     private void render() {
@@ -67,22 +65,25 @@ public final class Game extends Canvas implements Runnable, KeyListener {
 //                Constants.WIDTH, Constants.HEIGHT / 2);
 
         Graphics g2 = bs.getDrawGraphics();
-        g2.drawImage(image, 0, 0, Constants.WIDTH * Constants.SCALE,
-                Constants.HEIGHT * Constants.SCALE, null);
+        g2.drawImage(image, 0, 0, (int) (Constants.width * Constants.scale),
+                (int) (Constants.height * Constants.scale), null);
         g2.dispose();
         bs.show();
     }
 
     private void init() {
 
-        image = new BufferedImage(Constants.WIDTH,
-                Constants.HEIGHT, BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(Constants.width,
+                Constants.height, BufferedImage.TYPE_INT_ARGB);
         g = (Graphics2D) image.getGraphics();
 
         // Antialiasing for the titlescreen
 //        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 //                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         running = true;
+
+        mouseHandler = new MouseHandler(this);
+        key = new KeyHandler(this);
         gsm = new GameStateManager();
     }
 
@@ -101,14 +102,18 @@ public final class Game extends Canvas implements Runnable, KeyListener {
             lastTime = currentTime;
             while (delta >= 1) {
                 update();
+                input(mouseHandler, key);
                 updates++;
                 delta--;
             }
+
+            input(mouseHandler, key);
             render();
             frames++;
+
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                GUI.setFPS(frames);
+                PlayerUI.setFPS(frames);
                 System.out.println(Constants.TITLE + frames
                         + " FPS " + updates + " UPS");
                 updates = 0;
@@ -118,19 +123,8 @@ public final class Game extends Canvas implements Runnable, KeyListener {
 
     }
 
-    @Override
-    public void keyTyped(final KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        Key.keySet(e.getKeyCode(), true);
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        Key.keySet(e.getKeyCode(), false);
+    public void input(MouseHandler mouseHandler, KeyHandler key) {
+        gsm.input(mouseHandler, key);
     }
 
     public static void main(final String[] args) {
@@ -142,4 +136,5 @@ public final class Game extends Canvas implements Runnable, KeyListener {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
+
 }

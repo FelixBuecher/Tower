@@ -1,13 +1,19 @@
-package game.entity.Mob.Player;
+package game.entity.mob.player;
 
-import game.entity.Mob.Mob;
+import game.entity.mob.Mob;
+import game.entity.projectiles.Testprojectiles;
+import game.gamestate.GameLevel;
 import game.graphics.Sprite;
 import game.graphics.SpriteSheet;
+import game.input.MouseHandler;
 import game.level.Level;
+import game.util.Constants;
 
 import java.awt.*;
 
 public class Player extends Mob {
+
+    public static int fr = 5;
 
     public Player(Sprite sprite, Level level) {
         super(sprite, level);
@@ -17,8 +23,8 @@ public class Player extends Mob {
         animRight = Sprite.createSequence(SpriteSheet.playerSheet, 0, 2*32, 4, 32, 32);
         health = 5;
         maxHealth = 5;
-        setCollision(25, 30);
-        setDrawCollision();
+        setCollision(26, 31);
+//        setDrawCollision();
     }
 
     public void reduceHealth() {
@@ -27,6 +33,10 @@ public class Player extends Mob {
 
     public void update() {
         move();
+
+        if(fr > 0) {
+            fr--;
+        }
     }
 
     int frame = 0;
@@ -34,8 +44,7 @@ public class Player extends Mob {
         double xa = 0, ya = 0;
 
 
-        if (shift) moveSpeed = 6;
-        if (!shift) moveSpeed = 4;
+        if (shift) moveSpeed = 6; else moveSpeed = 4;
         if (right) {
             sequence = animRight.getSequence();
             xa += moveSpeed;
@@ -68,8 +77,6 @@ public class Player extends Mob {
         }
     }
 
-
-
     @Override
     public void render(Graphics2D g) {
         g.drawImage(image,  (int) (x - level.getX() - cw / 2), (int) (y - level.getY() -ch / 2), null);
@@ -82,5 +89,17 @@ public class Player extends Mob {
             r.y -= level.getY() + ch / 2;
             g.draw(r);
         }
+    }
+
+    public void shoot(MouseHandler mouse, GameLevel gl) {
+        if (fr <= 0) {
+            double dx = (mouse.getX() - (Constants.width / 2.0 * Constants.scale));
+            double dy = (mouse.getY() - (Constants.height / 2.0 * Constants.scale));
+            double dir = Math.atan2(dy, dx);
+            Testprojectiles test = new Testprojectiles(getX(), getY(), dir, Sprite.banditAttackDown, level);
+            gl.add(test);
+            fr = 10;
+        }
+
     }
 }

@@ -1,8 +1,11 @@
-package game.entity.Mob;
+package game.entity.mob;
 
 import game.entity.Entity;
+import game.entity.projectiles.Projectile;
+import game.entity.projectiles.Testprojectiles;
 import game.graphics.Sprite;
 import game.level.Level;
+import static game.util.Util.abs;
 
 import java.awt.image.BufferedImage;
 
@@ -113,9 +116,4 @@ public abstract class Mob extends Entity {
 
     }
 
-    private int abs(double v) {
-        if (v < 0)
-            return -1;
-        return 1;
-    }
 }

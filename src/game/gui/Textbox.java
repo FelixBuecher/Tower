@@ -1,6 +1,6 @@
 package game.gui;
 
-import game.tools.Constants;
+import game.util.Constants;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -42,11 +42,11 @@ public class Textbox {
     public void render(Graphics2D g) {
         g.setFont(font);
         g.setColor(windowColor);
-        g.fillRect(70, Constants.HEIGHT -110, Constants.WIDTH - 140, 100);
+        g.fillRect(70, Constants.height -110, Constants.width - 140, 100);
         g.setColor(textColor);
-        g.drawString(text, 170, Constants.HEIGHT - 80);
-        if (left != null) g.drawImage(left, 80, Constants.HEIGHT - 100, null);
-        if (right != null) g.drawImage(right, Constants.WIDTH - 200, Constants.HEIGHT - 100, null);
+        g.drawString(text, 170, Constants.height - 80);
+        if (left != null) g.drawImage(left, 80, Constants.height - 100, null);
+        if (right != null) g.drawImage(right, Constants.width - 200, Constants.height - 100, null);
 
     }
 }

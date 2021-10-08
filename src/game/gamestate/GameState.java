@@ -1,6 +1,8 @@
 package game.gamestate;
 
-import game.tools.Constants;
+import game.input.KeyHandler;
+import game.input.MouseHandler;
+import game.util.Constants;
 
 import java.awt.Graphics2D;
 
@@ -14,12 +16,11 @@ public abstract class GameState {
 
     protected GameStateManager gsm;
 
-    protected int width = Constants.WIDTH;
-    protected int height = Constants.HEIGHT;
+    protected int width = Constants.width;
+    protected int height = Constants.height;
     protected int tilesize = Constants.TILESIZE;
     protected int hWidth = width / 2;
     protected int hHeight = height / 2;
-    protected int vol = Constants.VOLUME;
 
     public GameState(GameStateManager gsm) {
         this.gsm = gsm;
@@ -28,5 +29,6 @@ public abstract class GameState {
     public abstract void init();
     public abstract void update();
     public abstract void render(Graphics2D g);
-    public abstract void handleInput();
+    public abstract void input(MouseHandler mouse, KeyHandler key);
+
 }

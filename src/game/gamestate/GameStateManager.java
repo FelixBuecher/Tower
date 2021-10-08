@@ -1,7 +1,9 @@
 package game.gamestate;
 
 import game.audio.JukeBox;
-import game.tools.Constants;
+import game.input.KeyHandler;
+import game.input.MouseHandler;
+import game.util.Constants;
 
 import java.awt.*;
 
@@ -42,6 +44,8 @@ public class GameStateManager {
             gameStates[state] = new Level1(this);
         else if(state == LEVEL2STATE)
             gameStates[state] = new Level2(this);
+
+//        Game.keyListener = false;
     }
 
     private void unloadState(int state) {
@@ -75,6 +79,18 @@ public class GameStateManager {
         }
     }
 
+    public void input(MouseHandler mouse, KeyHandler key) {
+        if(paused) {
+            pauseState.input(mouse, key);
+            return;
+        }
+        for(int i = 0; i < gameStates.length; i++) {
+            if(gameStates[i] != null) {
+                gameStates[i].input(mouse, key);
+            }
+        }
+    }
+
     /**
      * Used to render the current gamestate
      * @param g Graphics2D
@@ -87,7 +103,7 @@ public class GameStateManager {
         if(gameStates[currentState] != null) gameStates[currentState].render(g);
         else {
             g.setColor(java.awt.Color.BLACK);
-            g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
+            g.fillRect(0, 0, Constants.width, Constants.height);
         }
     }
 }

@@ -1,4 +1,4 @@
-package game.tools;
+package game.util;
 
 /**
  * Integer vector class.

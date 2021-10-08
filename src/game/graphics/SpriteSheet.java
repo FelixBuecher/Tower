@@ -2,7 +2,7 @@ package game.graphics;
 
 import java.awt.image.BufferedImage;
 
-import static game.tools.Util.loadImage;
+import static game.util.Util.loadImage;
 
 /**
  * As stated in the sprite class I chose to make this separately
@@ -21,6 +21,7 @@ public class SpriteSheet {
 
     public static SpriteSheet tileSheet = new SpriteSheet("spritesheet32");
     public static SpriteSheet playerSheet = new SpriteSheet("character32");
+    public static SpriteSheet banditProjectile = new SpriteSheet("Projectiles/testPro");
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////

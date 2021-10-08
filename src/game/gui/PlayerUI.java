@@ -1,12 +1,12 @@
 package game.gui;
 
-import game.entity.Mob.Player.Player;
-import game.tools.Constants;
+import game.entity.mob.player.Player;
+import game.util.Constants;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static game.tools.Util.loadImage;
+import static game.util.Util.loadImage;
 
 /**
  * Graphical user interface class, this calss will be used
@@ -15,7 +15,7 @@ import static game.tools.Util.loadImage;
  * @author Felix Buecher
  * @version 1.0
  */
-public class GUI {
+public class PlayerUI {
 
     private final Player player;
 
@@ -31,7 +31,7 @@ public class GUI {
      * Create the GUI for the player.
      * @param p player
      */
-    public GUI(Player p) {
+    public PlayerUI(Player p) {
         player = p;
         FPS = 0;
         try {
@@ -65,7 +65,7 @@ public class GUI {
         g.setColor(java.awt.Color.WHITE);
         g.drawString((int) player.getHealth() + " / " + (int) player.getMaxHealth(), 120, 46);
         g.setColor(java.awt.Color.WHITE);
-        g.drawString("FPS: " + FPS, (float) (Constants.WIDTH * 0.85), 20);
+        g.drawString("FPS: " + FPS, (float) (Constants.width * 0.85), 20);
 
     }
 

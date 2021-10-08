@@ -1,19 +1,17 @@
 package game.level;
 
-import game.tools.Constants;
+import game.util.Constants;
+import game.util.Util;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
-
-import javax.imageio.ImageIO;
 
 /**
  * This class is used to load playable levels, the way I wanted to create levels
  * was to make it simple and fast so I can add many levels without making it a hassle
- * so I managed to create a method of drawing levels and turning them into playable
- * levels. The way I do this is by having easy tile color coded, so each pixel in
+ * so I created a method of drawing levels and turning them into playable
+ * levels. The way I do this is by having every tile color coded, so each pixel in
  * the image that is used for the level is 1 tile in the game and that tile is based
  * on the color of that pixel. This allows me to create levels easy and fast and
  * pretty visually.
@@ -51,7 +49,7 @@ public class Level {
 
     private void loadLevel(String path) {
         try {
-            BufferedImage levelImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(Constants.LEVELP + path + ".png")));
+            BufferedImage levelImage = Util.loadImage(path);
             this.w = levelImage.getWidth();
             this.h = levelImage.getHeight();
             tiles = new int[w * h];
@@ -106,11 +104,30 @@ public class Level {
     public void render(Graphics2D g) {
         // I keep it flexible because I do not know how big I want the normal tilesize to be yet
         int x0 = (int) (x - tileSize) / tileSize ;// -tilesize so I can render 1 row further than what I can see so it becomes smoother
-        int x1 = (int) (x + Constants.WIDTH + tileSize) / tileSize;// +tilesize for the same reason
+        int x1 = (int) (x + Constants.width + tileSize) / tileSize;// +tilesize for the same reason
         int y0 = (int) (y - tileSize) / tileSize;
-        int y1 = (int) (y + Constants.HEIGHT + tileSize) / tileSize;
+        int y1 = (int) (y + Constants.height + tileSize) / tileSize;
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
+        g.fillRect(0, 0, Constants.width, Constants.height);
+        // Basically I will get every single tile position that I can currently see on the screen and only render those tiles
+        // this way I can maximize my fps and keep a very smooth picture
+        for (int y = y0; y < y1; y++) {
+            for (int x = x0; x < x1; x++) {
+                if (getTile(x, y) != null) g.drawImage(getTile(x, y).getSprite().getImage(), (x * tileSize) - (int) this.x, (y * tileSize) - (int) this.y, null);
+            }
+        }
+    }
+
+    /**
+     * For rendering the overlay
+     * @param g Graphics2D
+     */
+    public void renderOverlay(Graphics2D g) {
+        // I keep it flexible because I do not know how big I want the normal tilesize to be yet
+        int x0 = (int) (x - tileSize) / tileSize ;// -tilesize so I can render 1 row further than what I can see so it becomes smoother
+        int x1 = (int) (x + Constants.width + tileSize) / tileSize;// +tilesize for the same reason
+        int y0 = (int) (y - tileSize) / tileSize;
+        int y1 = (int) (y + Constants.height + tileSize) / tileSize;
         // Basically I will get every single tile position that I can currently see on the screen and only render those tiles
         // this way I can maximize my fps and keep a very smooth picture
         for (int y = y0; y < y1; y++) {

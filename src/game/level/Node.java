@@ -1,6 +1,6 @@
 package game.level;
 
-import game.tools.Vector2i;
+import game.util.Vector2i;
 
 /**
  * Node class needed for the A* search algorithm.

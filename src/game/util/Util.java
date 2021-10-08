@@ -1,4 +1,4 @@
-package game.tools;
+package game.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -36,6 +36,11 @@ public class Util {
         return image;
     }
 
+    public static int abs(double v) {
+        if (v < 0)
+            return -1;
+        return 1;
+    }
 
 
     private Util() {

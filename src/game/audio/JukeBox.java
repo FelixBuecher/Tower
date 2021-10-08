@@ -1,6 +1,6 @@
 package game.audio;
 
-import game.tools.Constants;
+import game.util.Constants;
 
 import javax.sound.sampled.*;
 import java.util.HashMap;

@@ -1,34 +1,50 @@
 package game.gamestate;
 
-import game.entity.Mob.Player.Player;
-import game.gui.GUI;
+import game.entity.mob.player.Player;
+import game.entity.projectiles.Projectile;
+import game.entity.projectiles.Testprojectiles;
+import game.gui.PlayerUI;
 import game.gui.Textbox;
-import game.input.Key;
+import game.input.KeyHandler;
+import game.input.MouseHandler;
 import game.level.Level;
+import game.util.Constants;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class GameLevel extends GameState {
 
     protected Player player;
     protected Level botLayer;
     protected Level topLayer;
-    protected GUI gui;
+    protected PlayerUI gui;
     protected Textbox text;
     protected boolean showText;
     protected boolean blockInput = false;
 
+    protected ArrayList<Projectile> proj;
+
     public GameLevel(GameStateManager gsm) {
         super(gsm);
         init();
+        initLists();
     }
 
     public void init() {
 
     }
 
+    public void initLists() {
+        proj = new ArrayList<Projectile>();
+    }
+
+    public void add(Testprojectiles p) {
+        proj.add(p);
+    }
+
     public void update() {
-        handleInput();
+
         if (player != null) {
             player.update();
         }
@@ -40,37 +56,54 @@ public abstract class GameLevel extends GameState {
             topLayer.setPosition(player.getX() - (float) hWidth, player.getY() - (float) hHeight);
             topLayer.update();
         }
+        for (int i = 0; i < proj.size(); i++) {
+            Projectile p = proj.get(i);
+            p.update();
+            if(p.remove()) {
+                proj.remove(i);
+                i--;
+            }
+        }
     }
 
     @Override
     public void render(Graphics2D g) {
         if (botLayer != null) botLayer.render(g);
+
         if (player != null) player.render(g);
-        if (topLayer != null) topLayer.render(g);
+
+        for(int i = 0; i < proj.size(); i++) {
+            proj.get(i).render(g);
+        }
+
+        if (topLayer != null) topLayer.renderOverlay(g);
+
         if (gui != null) gui.render(g);
+
         if (showText) text.render(g);
     }
 
-    public void text() {
-        showText = !showText;
-    }
-
     @Override
-    public void handleInput() {
+    public void input(MouseHandler mouse, KeyHandler key) {
+        key.tick();
+
+
         if(blockInput || player.getHealth() == 0) return;
-        if(Key.isPressed(Key.ESCAPE)) gsm.setState(GameStateManager.LEVEL1STATE);
-        player.setUp(Key.key[Key.UP]);
-        player.setLeft(Key.key[Key.LEFT]);
-        player.setDown(Key.key[Key.DOWN]);
-        player.setRight(Key.key[Key.RIGHT]);
-        if(Key.isPressed(Key.SHIFT)) text();
-//        player.setShift(Key.key[Key.SHIFT]);
-//        if(Key.isPressed(Key.E_KEY)) player.reduceHealth();
-        if(Key.isPressed(Key.E_KEY)) gsm.setState(GameStateManager.LEVEL2STATE);
-//        player.setJumping(Key.key[Key.BUTTON1]);
-//        player.setDashing(Key.key[Key.BUTTON2]);
-//        if(Key.isPressed(Key.BUTTON3)) player.setAttacking();
-//        if(Key.isPressed(Key.BUTTON4)) player.setCharging();
+        if(key.escape.clicked) {
+            gsm.pause();
+        }
+        if(mouse.getButton() == 1) {
+            player.shoot(mouse, this);
+        }
+        player.setUp(key.up.down);
+        player.setLeft(key.left.down);
+        player.setDown(key.down.down);
+        player.setRight(key.right.down);
+//        if(key.shift.clicked) showText = !showText;
+        player.setShift(key.shift.down);
+        if(key.f1.clicked) player.reduceHealth();
+        if(key.menu.clicked) gsm.setState(GameStateManager.LEVEL2STATE);
+
     }
 
 }

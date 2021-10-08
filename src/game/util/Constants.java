@@ -1,4 +1,4 @@
-package game.tools;
+package game.util;
 
 /**
  * Basically just a collection of some constants that I can access
@@ -16,12 +16,13 @@ public class Constants {
     public static final int TILESIZE = 32;
 
     // The resolutions of the game
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = WIDTH / 16 * 9;
-    public static final int SCALE = 2;
+    public static int width = 800;
+    public static int height = width / 16 * 9;
+    public static float scale = 2;
 
-    // The standart volume reduction (Will replace with a proper option later
-    public static final int VOLUME = 20;
+    // The standart volume reduction (Will replace with a proper option later)
+    public static int v_bgm = 20;
+    public static int v_sfx = 20;
 
     // Strings for all the paths to resources, if I change my mind about folder
     // Structure I only need to change it in here.

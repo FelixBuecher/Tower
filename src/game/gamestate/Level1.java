@@ -1,11 +1,12 @@
 package game.gamestate;
 
 import game.audio.JukeBox;
-import game.entity.Mob.Player.Player;
-import game.gui.GUI;
+import game.entity.mob.player.Player;
+import game.gui.PlayerUI;
 import game.graphics.Sprite;
 import game.gui.Textbox;
 import game.level.Level;
+import game.util.Constants;
 
 /**
  * The first level of the game, for now its just a test level
@@ -22,15 +23,16 @@ public class Level1 extends GameLevel {
 
     @Override
     public void init() {
+        initLists();
         botLayer = new Level("level", tilesize);
-//        topLayer = new Level("level2", tilesize);
+        // topLayer = new Level("levelOver", tilesize);
         player = new Player(Sprite.playerSprite, botLayer);
         player.setPosition(50, 50);
-        gui = new GUI(player);
+        gui = new PlayerUI(player);
         text = Textbox.createTextbox("This is a test");
         text.setLeft(Sprite.playerSprite.getImage());
         JukeBox.load("level1", "level1", false);
-        JukeBox.loop("level1", vol);
+        JukeBox.loop("level1", Constants.v_bgm);
     }
 
 }

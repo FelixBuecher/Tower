@@ -1,6 +1,6 @@
 package game.graphics;
 
-import game.tools.Constants;
+import game.util.Constants;
 
 import java.awt.image.BufferedImage;
 
@@ -22,13 +22,19 @@ public class Sprite {
     //////////////////////////////////////////////////////////////
 
     public static Sprite grass = createSprite(SpriteSheet.tileSheet,0,0);
-    public static Sprite grassStone = createSprite(SpriteSheet.tileSheet,6,0);
+    public static Sprite grassStone = createSprite(SpriteSheet.tileSheet,1,0);
     public static Sprite grassFlower0 = createSprite(SpriteSheet.tileSheet,2,0);
     public static Sprite voidSprite = createSprite(SpriteSheet.tileSheet,15,15);
 
 
     public static Sprite playerSprite = createSprite(SpriteSheet.playerSheet, 0, 0);
     public static Sprite playerSequence = createSequence(SpriteSheet.playerSheet, 0, 0, 4, 32, 32);
+
+    public static Sprite banditAttackUp = createSprite(SpriteSheet.banditProjectile, 1, 0, 25, 25);
+    public static Sprite banditAttackDown = createSprite(SpriteSheet.banditProjectile, 1, 2, 25, 25);
+    public static Sprite banditAttackLeft = createSprite(SpriteSheet.banditProjectile, 0, 1, 25, 25);
+    public static Sprite banditAttackRight = createSprite(SpriteSheet.banditProjectile, 2, 1, 25, 25);
+
 
     //////////////////////////////////////////////////////////////
     /////////////////////       Class        /////////////////////

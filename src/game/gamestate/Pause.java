@@ -1,6 +1,7 @@
 package game.gamestate;
 
-import game.input.Key;
+import game.input.KeyHandler;
+import game.input.MouseHandler;
 
 import java.awt.*;
 
@@ -29,7 +30,7 @@ public class Pause extends GameState {
 
     @Override
     public void update() {
-        handleInput();
+
     }
 
     @Override
@@ -42,9 +43,15 @@ public class Pause extends GameState {
     }
 
     @Override
-    public void handleInput() {
-        if(Key.isPressed(Key.ESCAPE)) gsm.unPause();
-        if(Key.isPressed(Key.E_KEY)) {
+    public void input(MouseHandler mouse, KeyHandler key) {
+        key.escape.tick();
+        key.menu.tick();
+
+        if(key.escape.clicked) {
+            gsm.unPause();
+        }
+
+        if(key.menu.clicked) {
             gsm.unPause();
             gsm.setState(GameStateManager.MENUSTATE);
         }
