@@ -24,7 +24,6 @@ public class Player extends Mob {
         health = 5;
         maxHealth = 5;
         setCollision(26, 31);
-//        setDrawCollision();
     }
 
     public void reduceHealth() {

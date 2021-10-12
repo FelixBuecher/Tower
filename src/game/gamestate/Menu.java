@@ -19,7 +19,6 @@ import static game.util.Util.loadImage;
  */
 public class Menu extends GameState {
 
-    private BufferedImage cursor;
     private Image bg;
     private int choice = 0;
     private final String[] options = {"New Game", "Load", "Option", "Quit"};
@@ -30,8 +29,6 @@ public class Menu extends GameState {
     public Menu(GameStateManager gsm) {
         super(gsm);
         try {
-            // Load selection cursor
-            cursor = loadImage("Cursor");
 
             // Setting up fonts
             titleFont = new Font("Times New Roman", Font.PLAIN, width / 9);
@@ -47,12 +44,6 @@ public class Menu extends GameState {
             JukeBox.load("menuoption", "menuoption", true);
             JukeBox.load("menuselect", "menuselect", true);
 
-            // Loading music
-            JukeBox.load("level1", "level1", false);
-            JukeBox.loop("level1",  Constants.v_bgm);
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +52,8 @@ public class Menu extends GameState {
 
     @Override
     public void init() {
-
+        JukeBox.load("level1", "level1", false);
+        JukeBox.loop("level1",  Constants.v_bgm);
     }
 
     @Override
@@ -102,10 +94,10 @@ public class Menu extends GameState {
 
 
         // Draw selection cursor
-        if(choice == 0) g.drawImage(cursor, x - 32, (int) (y - fs * 0.7), null);
-        else if(choice == 1) g.drawImage(cursor, x - 32, (int) (y + fs * 0.25), null);
-        else if(choice == 2) g.drawImage(cursor, x - 32, (int) (y + fs * 1.25), null);
-        else if(choice == 3) g.drawImage(cursor, x - 32, (int) (y + fs * 2.25), null);
+        if(choice == 0) g.drawString(">", x - 32, y);
+        else if(choice == 1) g.drawString(">", x - 32, y + fs);
+        else if(choice == 2) g.drawString(">", x - 32, y + fs * 2);
+        else if(choice == 3) g.drawString(">", x - 32, y + fs * 3);
 
         // Credit
         g.setFont(font2);
@@ -124,6 +116,7 @@ public class Menu extends GameState {
             //PlayerSave.init();
         } else if(choice == 2){
             JukeBox.play("menuselect", Constants.v_sfx);
+            gsm.setState(GameStateManager.OPTIONSTATE);
         } else if(choice == 3) {
             System.exit(0);
         }
@@ -138,12 +131,14 @@ public class Menu extends GameState {
         if(key.menu.clicked){
             select();
         }
+
         if(key.up.clicked) {
             if(choice > 0) {
                 JukeBox.play("menuoption", Constants.v_sfx);
                 choice--;
             }
         }
+
         if(key.down.clicked) {
             if(choice < options.length - 1) {
                 JukeBox.play("menuoption", Constants.v_sfx);

@@ -17,8 +17,9 @@ import java.awt.image.BufferedImage;
 public final class Game extends Canvas implements Runnable {
 
     // Game thread
-    private Thread thread;
+//    private Thread thread;
     private boolean running;
+    private Thread thread;
 
     // Image
     private BufferedImage image;

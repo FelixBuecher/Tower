@@ -2,6 +2,7 @@ package game.entity.projectiles;
 
 import game.graphics.Sprite;
 import game.level.Level;
+import game.util.Constants;
 
 import java.awt.*;
 
@@ -15,7 +16,6 @@ public class Testprojectiles extends Projectile {
         vx = speed * Math.cos(angle);
         vy = speed * Math.sin(angle);
         setCollision(23, 23);
-//        setDrawCollision();
     }
 
     public void update() {

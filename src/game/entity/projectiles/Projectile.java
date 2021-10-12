@@ -3,6 +3,7 @@ package game.entity.projectiles;
 import game.entity.Entity;
 import game.graphics.Sprite;
 import game.level.Level;
+import game.util.Constants;
 
 import static game.util.Util.abs;
 

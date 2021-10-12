@@ -25,8 +25,9 @@ public class GameStateManager {
 
     public static final int NUMGAMESTATES = 10;
     public static final int MENUSTATE = 1;
-    public static final int LEVEL1STATE = 2;
-    public static final int LEVEL2STATE = 3;
+    public static final int OPTIONSTATE = 2;
+    public static final int LEVEL1STATE = 3;
+    public static final int LEVEL2STATE = 4;
 
     public GameStateManager() {
         JukeBox.init();
@@ -35,11 +36,14 @@ public class GameStateManager {
         paused = false;
         currentState = MENUSTATE;
         loadState(currentState);
+        gameStates[MENUSTATE].init();
     }
 
     private void loadState(int state) {
         if(state == MENUSTATE)
             gameStates[state] = new Menu(this);
+        else if(state == OPTIONSTATE)
+            gameStates[state] = new Option(this);
         else if(state == LEVEL1STATE)
             gameStates[state] = new Level1(this);
         else if(state == LEVEL2STATE)

@@ -33,6 +33,7 @@ public class Entity {
         h = image.getHeight();
         cw = image.getWidth();
         ch = image.getHeight();
+        if(Constants.drawHitBox) setDrawCollision();
     }
 
     public Entity() {

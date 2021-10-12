@@ -65,7 +65,7 @@ public class JukeBox {
     /**
      * Used to play a sound effect (The higher v is the quieter the sound gets)
      * @param s the sound file
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void play(String s, int v) {
 		play(s, gap, v);
@@ -75,7 +75,7 @@ public class JukeBox {
      * Used to play a sound effect
      * @param s the sound file
      * @param i the first sound frame to play
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void play(String s, int i, int v) {
 		if(mute) return;
@@ -83,7 +83,7 @@ public class JukeBox {
 		if(c == null) return;
 		// Controlling the volume based on v, I plan to add a menu option for sound later
         FloatControl gC = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-        gC.setValue(-1 * v);
+        gC.setValue(-v);
 		if(c.isRunning()) c.stop();
 		c.setFramePosition(i);
 		while(!c.isRunning()) c.start();
@@ -111,7 +111,7 @@ public class JukeBox {
     /**
      * Used to create a looping BGM sound.
      * @param s the sound file
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void loop(String s, int v) {
 		loop(s, gap, gap, clips.get(s).getFrameLength() - 1, v);
@@ -121,7 +121,7 @@ public class JukeBox {
      * Used to create a looping BGM sound that is starting from a specific position.
      * @param s the sound file
      * @param frame the first frame to play from
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void loop(String s, int frame, int v) {
 		loop(s, frame, gap, clips.get(s).getFrameLength() - 1, v);
@@ -132,7 +132,7 @@ public class JukeBox {
      * @param s the sound file
      * @param start the frame from where to loop
      * @param end the end frame of the loop
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void loop(String s, int start, int end, int v) {
 		loop(s, gap, start, end, v);
@@ -144,13 +144,13 @@ public class JukeBox {
      * @param frame the first frame to play from
      * @param start the frame from where to loop
      * @param end the end frame of the loop
-     * @param v -volume (higher v = quieter sound)
+     * @param v volume (higher v = louder sound)
      */
 	public static void loop(String s, int frame, int start, int end, int v) {
 		stop(s);
 		if(mute) return;
         FloatControl gC = (FloatControl) clips.get(s).getControl(FloatControl.Type.MASTER_GAIN);
-        gC.setValue(-1 * v);
+        gC.setValue(-v);
 		clips.get(s).setLoopPoints(start, end);
 		clips.get(s).setFramePosition(frame);
 		clips.get(s).loop(Clip.LOOP_CONTINUOUSLY);
@@ -160,5 +160,10 @@ public class JukeBox {
 		stop(s);
 		clips.get(s).close();
 	}
+
+	public static void changeVolume(String s, int v) {
+        FloatControl gC = (FloatControl) clips.get(s).getControl(FloatControl.Type.MASTER_GAIN);
+        gC.setValue(-v);
+    }
 	
 }

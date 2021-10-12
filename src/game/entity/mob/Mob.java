@@ -1,10 +1,10 @@
 package game.entity.mob;
 
 import game.entity.Entity;
-import game.entity.projectiles.Projectile;
-import game.entity.projectiles.Testprojectiles;
 import game.graphics.Sprite;
 import game.level.Level;
+import game.util.Constants;
+
 import static game.util.Util.abs;
 
 import java.awt.image.BufferedImage;

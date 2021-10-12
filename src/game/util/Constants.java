@@ -9,20 +9,28 @@ package game.util;
  * @version 1.0
  */
 public class Constants {
-    // The title of the game, will be shown in the top left
+
+    private Constants() {
+
+    }
+
+    // The title of the game
     public static final String TITLE = "Tower";
 
     // The normal tilesize for the game
     public static final int TILESIZE = 32;
 
     // The resolutions of the game
-    public static int width = 800;
+    public static int width = 960;
     public static int height = width / 16 * 9;
-    public static float scale = 2;
+    public static double scale = 1.5;
+
+    // Used to show hitboxes of the respective aspect of the game
+    public static boolean drawHitBox = false;
 
     // The standart volume reduction (Will replace with a proper option later)
-    public static int v_bgm = 20;
-    public static int v_sfx = 20;
+    public static int v_bgm = 15;
+    public static int v_sfx = 15;
 
     // Strings for all the paths to resources, if I change my mind about folder
     // Structure I only need to change it in here.
@@ -33,7 +41,4 @@ public class Constants {
     public static final String SFXP = "/Audio/SFX/";
     public static final String MUSICP = "/Audio/Music/";
 
-    private Constants() {
-
-    }
 }
